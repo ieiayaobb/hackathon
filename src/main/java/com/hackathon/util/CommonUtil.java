@@ -24,4 +24,12 @@ public class CommonUtil {
 		return configMap;
 	}
 
+	public static boolean isNumeric(String input) {
+		try {
+			Double.parseDouble(input);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
 }

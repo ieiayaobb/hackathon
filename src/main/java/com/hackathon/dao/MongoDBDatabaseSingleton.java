@@ -22,6 +22,8 @@ public class MongoDBDatabaseSingleton {
 
 	private DB m_db;
 
+	private DB freebase_db;
+
 	/**
 	 * make sure you called getInstance(commandLine, databaseName) before!
 	 */
@@ -60,6 +62,7 @@ public class MongoDBDatabaseSingleton {
 				.autoConnectRetry(true).build());
 
 		m_db = m_mongo.getDB(database);
+		freebase_db = m_mongo.getDB("freebase");
 
 		char[] passwordChars = password.toCharArray();
 
@@ -84,8 +87,12 @@ public class MongoDBDatabaseSingleton {
 	public DBCollection getPatentCollection() {
 		return m_db.getCollection("patent");
 	}
+	public DBCollection getFreebaseCollection(){
+		return freebase_db.getCollection("data");
+	}
 
 	public void close() {
 		m_mongo.close();
 	}
+
 }
