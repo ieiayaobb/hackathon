@@ -103,4 +103,8 @@ public class StringUtil {
 		}
 		return "";
 	}
+
+	public static String clean(String val){
+		return val.replaceAll("\'", "").replaceAll("\"", "").replaceAll("\\\\", "");
+	}
 }

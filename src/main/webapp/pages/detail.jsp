@@ -18,64 +18,47 @@
     <script src="${ctx}/static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            var data = {
-                name : "Apple",
-                detail : "Detail information of APPLE.",
-                alias : [
-                    {
-                        "language" : "CN",
-                        "value" : "中国"
-                    },
-                    {
-                        "language" : "EN",
-                        "value" : "APPLE INC."
-                    },
-                    {
-                        "language" : "CN",
-                        "value" : "中国"
-                    },
-                    {
-                        "language" : "EN",
-                        "value" : "APPLE INC."
-                    },
-                    {
-                        "language" : "CN",
-                        "value" : "中国"
-                    },
-                    {
-                        "language" : "EN",
-                        "value" : "APPLE INC."
-                    },
-                    {
-                        "language" : "CN",
-                        "value" : "中国"
-                    },
-                    {
-                        "language" : "EN",
-                        "value" : "APPLE INC."
-                    }
-                ]
-            }
+            var company = '${company}';
+            var data = $.parseJSON(company);
+            console.log(data);
 
             $("#name").text(data.name);
-            $("#detail").text(data.detail);
-
+            $("#web").attr("href",data.web).text(data.web);
             var content = "";
 
-            for(var i = 0 ;i < data.alias.length;i++){
+            var i = 0;
+            for (var prop in data.alias){
                 if(i % 3 == 0){
                     content += '<div class="row">'
                 }
                 var eachValue = '<div class="col-md-4">'+
-                '<h2>' + data.alias[i].language + '</h2>' +
-                '<p>' + data.alias[i].value + '</p>' +
+                '<h2>' + prop + '</h2>' +
+                '<p>' + data.alias[prop] + '</p>' +
                 '</div>';
                 content += eachValue;
                 if( i % 3 == 2){
                     content += '</div>'
                 }
+                i++;
             }
-            $("#content").prepend(content);
+            $("#content").append(content);
+            var description = "";
+
+            for (var prop in data.description){
+                if(i % 3 == 0){
+                    description += '<div class="row">'
+                }
+                var eachValue = '<div class="col-md-4">'+
+                        '<h2>' + prop + '</h2>' +
+                        '<p>' + data.description[prop] + '</p>' +
+                        '</div>';
+                description += eachValue;
+                if( i % 3 == 2){
+                    description += '</div>'
+                }
+                i++;
+            }
+            $("#description").append(description);
         })
     </script>
 
@@ -94,14 +77,15 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1 id="name">Apple</h1>
-        <p id="detail">Detail information of APPLE.</p>
+        <h1 id="name"></h1>
+          <a id="web" href=""></a>
       </div>
     </div>
 
-    <div id="content" class="container">
+    <div id="content" class="container"></div>
       <!-- Example row of columns -->
-
+      <hr>
+    <div id="description" class="container"></div>
       <hr>
       <footer>
         <p>© PatSnap 2014</p>

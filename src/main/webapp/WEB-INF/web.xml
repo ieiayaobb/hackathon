@@ -21,7 +21,7 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>com.hackathon.base.LoadConfig</listener-class>
     </listener>
 
 </web-app>

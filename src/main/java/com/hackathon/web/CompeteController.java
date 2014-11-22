@@ -2,6 +2,7 @@ package com.hackathon.web;
 
 import com.hackathon.service.FetchCompanyService;
 import com.hackathon.service.FetchDataService;
+import com.hackathon.service.FreebaseService;
 import com.hackathon.service.SimulateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class CompeteController {
     private FetchDataService fetchDataService;
     @Autowired
     private FetchCompanyService fetchCompanyService;
+    @Autowired
+    private FreebaseService freebaseService;
 
     @RequestMapping(value = "/fd")
     public String fd(Model model) {
@@ -33,7 +36,7 @@ public class CompeteController {
     }
     @RequestMapping(value = "/detail/{name}")
     public String detail(@PathVariable String name, Model model){
-        model.addAttribute("company", fetchCompanyService.getDetailByName(name));
+        model.addAttribute("company", freebaseService.getCompanyInfo(name));
         return "detail";
     }
 }

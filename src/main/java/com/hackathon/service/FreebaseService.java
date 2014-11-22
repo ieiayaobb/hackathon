@@ -1,5 +1,7 @@
 package com.hackathon.service;
 
+import com.alibaba.fastjson.JSON;
+import com.hackathon.dao.MongoDBDatabaseSingleton;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -13,17 +15,8 @@ import java.net.URLEncoder;
  */
 @Service
 public class FreebaseService {
-    public static void main(String[] args) throws IOException {
-        String query = "[{\"type\":\"/business/business_operation\",\"name\":\"Apple\"}]";
-        GetMethod getMethod = new GetMethod("https://www.googleapis.com/freebase/v1/mqlread?query=" + URLEncoder.encode(query, "UTF-8"));
-        HttpClient httpClient = new HttpClient();
-        int statusCode = httpClient.executeMethod(getMethod);
-        if (statusCode != HttpStatus.SC_OK) {
-            System.out.println("Method failed: "
-                    + getMethod.getStatusLine());
-        }
 
-        byte[] responseBody = getMethod.getResponseBody();
-        System.out.println(new String(responseBody));
+    public String getCompanyInfo(String name){
+        return JSON.toJSONString(MongoDBDatabaseSingleton.getInstance().getCompanyInfo(name));
     }
 }

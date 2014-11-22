@@ -47,8 +47,6 @@ public class Constant {
 		public static final String PARAM_MONGO_HOST = "param.mongodb.host";
 		public static final String PARAM_MONGO_PORT = "param.mongodb.port";
 		public static final String PARAM_MONGO_DATABASE = "param.mongodb.database";
-		public static final String PARAM_MONGO_USERNAME = "param.mongodb.username";
-		public static final String PARAM_MONGO_PASSWORD = "param.mongodb.password";
 
 		public static final String IPC_ID = "ipcid";
 		public static final String LOC_ID = "locid";
