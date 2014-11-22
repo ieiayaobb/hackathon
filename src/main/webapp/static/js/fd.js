@@ -191,7 +191,7 @@ function init(json) {
         Edge: {
             overridable: true,
             color: '#8cc63e',
-            lineWidth: 2,
+            lineWidth: 5,
             type: "arrow"
         },
         //Native canvas text styling
