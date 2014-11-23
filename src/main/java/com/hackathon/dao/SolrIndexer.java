@@ -8,15 +8,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.hackathon.base.Constant;
-import com.hackathon.util.ConvertUtil;
-import com.hackathon.util.IndexUtil;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.common.SolrInputDocument;
 
+import com.hackathon.base.Constant;
+import com.hackathon.util.ConvertUtil;
+import com.hackathon.util.IndexUtil;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -152,8 +152,7 @@ public class SolrIndexer {
 		}
 
 		private void initSolrServer() {
-			String httpsever = "http://localhost:9080/solr/PATENT";
-			m_allSolrServer = new HttpSolrServer(httpsever);
+			m_allSolrServer = new HttpSolrServer(Constant.SOLR_URL);
 		}
 
 		@Override
@@ -184,6 +183,7 @@ public class SolrIndexer {
 						m_allSolrServer.add(m_submongodoclist);
 						ack(pnString);
 					} catch (Exception e) {
+						m_failed++;
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e1) {
@@ -203,6 +203,7 @@ public class SolrIndexer {
 					m_allSolrServer.add(m_submongodoclist);
 					ack(pnString);
 				} catch (Exception e) {
+					m_failed++;
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e1) {
@@ -301,10 +302,10 @@ public class SolrIndexer {
 	}
 
 	public void start() {
-		IndexUtil.InitPatentDB("127.0.0.1:27017");
+		IndexUtil.InitPatentDB(Constant.MONGO_URL);
 
-		m_mongo_queue = new LinkedBlockingQueue<>(3000);
-		m_solr_queue = new LinkedBlockingQueue<>(2000);
+		m_mongo_queue = new LinkedBlockingQueue<>(4000);
+		m_solr_queue = new LinkedBlockingQueue<>(3000);
 
 		START_INDEXING = new Date();
 

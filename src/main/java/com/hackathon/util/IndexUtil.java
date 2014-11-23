@@ -46,7 +46,7 @@ public class IndexUtil {
 	}
 
 	private static MongoClientOptions GetReadOnlyOptions() {
-		Builder builder = new Builder();
+		Builder builder = new MongoClientOptions.Builder();
 		builder.autoConnectRetry(true);
 		builder.readPreference(ReadPreference.secondaryPreferred());
 		builder.socketTimeout(180000);

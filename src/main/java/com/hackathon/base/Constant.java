@@ -230,4 +230,7 @@ public class Constant {
 	public static final int SOLR_THREAD = 3;
 	public static final int BATCH_SIZE = 20;
 	public static final int SOLR_BATCH = 50;
+	
+	public static final String MONGO_URL = "127.0.0.1:27017";
+    public static final String SOLR_URL = "http://192.168.3.70:9080/solr/PATENT";
 }

@@ -2,7 +2,6 @@ package com.hackathon.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,11 +72,11 @@ public class ConvertUtil {
 	private final static String SOLR_IPC_M = "IPC_M";
 	private final static String SOLR_IPCR = "IPCR";
 
-	private final static String SOLR_IPC_SUB_CLASS_COUNT = "IPC_SUB_CLASS_COUNT";
-	private final static String SOLR_IPC_SECTION_COUNT = "IPC_SECTION_COUNT";
-	private final static String SOLR_IPC_CLASS_COUNT = "IPC_CLASS_COUNT";
-	private final static String SOLR_IPC_MAIN_GROUP_COUNT = "IPC_MAIN_GROUP_COUNT";
-	private final static String SOLR_IPC_COUNT = "IPC_COUNT";
+//	private final static String SOLR_IPC_SUB_CLASS_COUNT = "IPC_SUB_CLASS_COUNT";
+//	private final static String SOLR_IPC_SECTION_COUNT = "IPC_SECTION_COUNT";
+//	private final static String SOLR_IPC_CLASS_COUNT = "IPC_CLASS_COUNT";
+//	private final static String SOLR_IPC_MAIN_GROUP_COUNT = "IPC_MAIN_GROUP_COUNT";
+//	private final static String SOLR_IPC_COUNT = "IPC_COUNT";
 
 	private final static String SOLR_CCL = "CCL";
 	private final static String SOLR_UPC = "UPC";
@@ -90,25 +89,25 @@ public class ConvertUtil {
 	// /
 	// / CITATION SOLR FIELDS
 	// /
-	private final static String SOLR_CITE_FACET = "CITE_FACET";
-
-	private final static String SOLR_CITE_COUNT = "CITE_COUNT";
-	private final static String SOLR_CITED_COUNT = "CITED_COUNT";
-
-	// FAMILY MEMBER COUNT
-	private final static String SOLR_DOCDB_FAMILY_COUNT = "DOCDB_FAMILY_COUNT";
-	private final static String SOLR_INPADOC_FAMILY_COUNT = "INPADOC_FAMILY_COUNT";
-
-	// BCR
-	private final static String SOLR_BCR = "BCR";
+//	private final static String SOLR_CITE_FACET = "CITE_FACET";
+//
+//	private final static String SOLR_CITE_COUNT = "CITE_COUNT";
+//	private final static String SOLR_CITED_COUNT = "CITED_COUNT";
+//
+//	// FAMILY MEMBER COUNT
+//	private final static String SOLR_DOCDB_FAMILY_COUNT = "DOCDB_FAMILY_COUNT";
+//	private final static String SOLR_INPADOC_FAMILY_COUNT = "INPADOC_FAMILY_COUNT";
+//
+//	// BCR
+//	private final static String SOLR_BCR = "BCR";
 	// isd
-	private final static String SOLR_ISD = "ISD";
-	// years pendency
-	private final static String SOLR_YEARS_PENDENCY = "YEARS_PENDENCY";
-	// renewal year
-	private final static String SOLR_RD_CLOSE = "RD_CLOSE";
-	// CLMS COUNT
-	private final static String SOLR_CLAIM_COUNT = "CLAIM_COUNT";
+//	private final static String SOLR_ISD = "ISD";
+//	// years pendency
+//	private final static String SOLR_YEARS_PENDENCY = "YEARS_PENDENCY";
+//	// renewal year
+//	private final static String SOLR_RD_CLOSE = "RD_CLOSE";
+//	// CLMS COUNT
+//	private final static String SOLR_CLAIM_COUNT = "CLAIM_COUNT";
 
 	// /
 	// / PERSON SOLR FIELDS
@@ -119,7 +118,7 @@ public class ConvertUtil {
 	private final static String SOLR_ANS = "ANS";
 	private final static String SOLR_ANS_FACET = "ANS_FACET";
 	private final static String SOLR_AN_FACET = "ASSIGNEE_NORMALIZED_NAME_FACET";
-	private final static String SOLR_AN_COUNT = "AN_COUNT";
+//	private final static String SOLR_AN_COUNT = "AN_COUNT";
 
 	private final static String SOLR_IN = "IN";
 	private final static String SOLR_INS = "INS";
@@ -175,7 +174,7 @@ public class ConvertUtil {
 	private final static String MONGODB_class_ipc = "ipc";
 	private final static String MONGODB_class_cpc = "cpc";
 	private final static String MONGODB_class_ipcr = "ipcr";
-	private final static String MONGODB_citation = "citation";
+//	private final static String MONGODB_citation = "citation";
 	private final static String MONGODB_pn = "pn";
 
 	private SimpleDateFormat m_solrDateFormat = new SimpleDateFormat(
@@ -186,20 +185,24 @@ public class ConvertUtil {
 	private SimpleDateFormat m_simpleDateformatYMD = new SimpleDateFormat(
 			"yyyyMMdd");
 
-	private static final String MONGODB_analyzed_data = "analyzed_data";
-	private static final String MONGODB_bcr = "bcr";
-	private static final String MONGODB_claim_count = "claim_count";
-	private static final String MONGODB_rd_close = "rd_close";
-	private static final String MONGODB_rd_close4 = "4";
-	private static final String MONGODB_rd_close8 = "8";
-	private static final String MONGODB_rd_close12 = "12";
-	private static final String MONGODB_years_pendency = "years_pendency";
-
-	private static final String MONGODB_isd = "isd";
+//	private static final String MONGODB_analyzed_data = "analyzed_data";
+//	private static final String MONGODB_bcr = "bcr";
+//	private static final String MONGODB_claim_count = "claim_count";
+//	private static final String MONGODB_rd_close = "rd_close";
+//	private static final String MONGODB_rd_close4 = "4";
+//	private static final String MONGODB_rd_close8 = "8";
+//	private static final String MONGODB_rd_close12 = "12";
+//	private static final String MONGODB_years_pendency = "years_pendency";
+//
+//	private static final String MONGODB_isd = "isd";
 
 	public SolrInputDocument dbObjectToSolrInputDocument(DBObject mongoDocument) {
 
 		ObjectId _id = (ObjectId) mongoDocument.get(MONGODB_id);
+		
+		if (mongoDocument.get(MONGODB_pn) == null) {
+			return null;
+		}
 		String pn = mongoDocument.get(MONGODB_pn).toString();
 
 		SolrInputDocument solrDocument = new SolrInputDocument();
@@ -207,12 +210,6 @@ public class ConvertUtil {
 		solrDocument.addField(SOLR_MONGO_TS,
 				((Date) mongoDocument.get("ts")).getTime());
 		solrDocument.addField(SOLR_INDEX_TS, new Date().getTime());
-
-		if (mongoDocument.containsField(MONGODB_isd)
-				&& mongoDocument.get("isd") != null) {
-			solrDocument.addField(SOLR_ISD, mongoDocument.get("isd"));
-
-		}
 
 		// APNO
 		String apno = null;
@@ -281,13 +278,12 @@ public class ConvertUtil {
 
 		BasicDBList typeList = (BasicDBList) mongoDocument.get(MONGODB_type);
 
-		List<String> typeArray = new LinkedList<String>();
+		List<String> typeArray = new LinkedList<>();
 
 		if (typeList != null && typeList.size() > 0) {
 			for (Object currentType : typeList) {
 				typeArray.add(currentType.toString());
 			}
-
 			solrDocument.setField(SOLR_DOCUMENT_TYPE, typeArray);
 
 		} else {
@@ -306,61 +302,61 @@ public class ConvertUtil {
 				SOLR_APD_YEARMONTHDAY, MONGODB_apdt, solrDocument,
 				mongoDocument);
 
-		if (mongoDocument.containsField(MONGODB_analyzed_data)
-				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
-						.containsField(MONGODB_years_pendency)) {
-			solrDocument.setField(SOLR_YEARS_PENDENCY,
-					((DBObject) mongoDocument.get(MONGODB_analyzed_data))
-							.get(MONGODB_years_pendency));
-		}
+//		if (mongoDocument.containsField(MONGODB_analyzed_data)
+//				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
+//						.containsField(MONGODB_years_pendency)) {
+//			solrDocument.setField(SOLR_YEARS_PENDENCY,
+//					((DBObject) mongoDocument.get(MONGODB_analyzed_data))
+//							.get(MONGODB_years_pendency));
+//		}
 
-		if (mongoDocument.containsField(MONGODB_analyzed_data)
-				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
-						.containsField(MONGODB_rd_close)) {
-			DBObject tmpobj = (DBObject) ((DBObject) mongoDocument
-					.get(MONGODB_analyzed_data)).get(MONGODB_rd_close);
-			List<Integer> rdlist = new ArrayList<Integer>();
-			Calendar calendar = Calendar.getInstance();
+//		if (mongoDocument.containsField(MONGODB_analyzed_data)
+//				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
+//						.containsField(MONGODB_rd_close)) {
+//			DBObject tmpobj = (DBObject) ((DBObject) mongoDocument
+//					.get(MONGODB_analyzed_data)).get(MONGODB_rd_close);
+//			List<Integer> rdlist = new ArrayList<Integer>();
+//			Calendar calendar = Calendar.getInstance();
+//
+//			if (tmpobj.containsField(MONGODB_rd_close4)) {
+//				calendar.setTime((Date) tmpobj.get(MONGODB_rd_close4));
+//				rdlist.add(calendar.get(Calendar.YEAR));
+//			}
+//			calendar.setTime((Date) tmpobj.get(MONGODB_rd_close8));
+//			if (tmpobj.containsField(MONGODB_rd_close8)
+//					&& rdlist.indexOf(calendar.get(Calendar.YEAR)) == -1) {
+//				rdlist.add(calendar.get(Calendar.YEAR));
+//			}
+//			calendar.setTime((Date) tmpobj.get(MONGODB_rd_close12));
+//			if (tmpobj.containsField(MONGODB_rd_close12)
+//					&& rdlist.indexOf(calendar.get(Calendar.YEAR)) == -1) {
+//				rdlist.add(calendar.get(Calendar.YEAR));
+//			}
+//
+//			if (rdlist.size() > 0) {
+//				solrDocument.addField(SOLR_RD_CLOSE, rdlist);
+//			}
+//		}
 
-			if (tmpobj.containsField(MONGODB_rd_close4)) {
-				calendar.setTime((Date) tmpobj.get(MONGODB_rd_close4));
-				rdlist.add(calendar.get(Calendar.YEAR));
-			}
-			calendar.setTime((Date) tmpobj.get(MONGODB_rd_close8));
-			if (tmpobj.containsField(MONGODB_rd_close8)
-					&& rdlist.indexOf(calendar.get(Calendar.YEAR)) == -1) {
-				rdlist.add(calendar.get(Calendar.YEAR));
-			}
-			calendar.setTime((Date) tmpobj.get(MONGODB_rd_close12));
-			if (tmpobj.containsField(MONGODB_rd_close12)
-					&& rdlist.indexOf(calendar.get(Calendar.YEAR)) == -1) {
-				rdlist.add(calendar.get(Calendar.YEAR));
-			}
-
-			if (rdlist.size() > 0) {
-				solrDocument.addField(SOLR_RD_CLOSE, rdlist);
-			}
-		}
-
-		if (mongoDocument.containsField(MONGODB_analyzed_data)
-				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
-						.containsField(MONGODB_claim_count)) {
-			solrDocument.addField(SOLR_CLAIM_COUNT, ((DBObject) mongoDocument
-					.get(MONGODB_analyzed_data)).get(MONGODB_claim_count));
-		}
+//		if (mongoDocument.containsField(MONGODB_analyzed_data)
+//				&& ((DBObject) mongoDocument.get(MONGODB_analyzed_data))
+//						.containsField(MONGODB_claim_count)) {
+//			solrDocument.addField(SOLR_CLAIM_COUNT, ((DBObject) mongoDocument
+//					.get(MONGODB_analyzed_data)).get(MONGODB_claim_count));
+//		}
 
 		// IPC & UPC
 		handleEmbeddedDocumentClassification(solrDocument, mongoDocument);
 
-		// CITATION
-		handleEmbeddedCitation(solrDocument, mongoDocument);
+//		// CITATION
+//		handleEmbeddedCitation(solrDocument, mongoDocument);
 
-		// CITED
-		// BCR
-		handleCited(solrDocument, mongoDocument);
+//		// CITED
+//		// BCR
+//		handleCited(solrDocument, mongoDocument);
 
 		// FAMILY COUNT
-		handleFamilyCount(solrDocument, mongoDocument);
+//		handleFamilyCount(solrDocument, mongoDocument);
 
 		// PERSON
 		handleEmbeddedPerson(solrDocument, mongoDocument, MONGODB_personAn);
@@ -454,25 +450,25 @@ public class ConvertUtil {
 				if (fullset.size() > 0) {
 					solrDocument.setField(SOLR_ICL,
 							fullset.toArray(new String[] {}));
-					solrDocument.setField(SOLR_IPC_COUNT, fullset.size());
+//					solrDocument.setField(SOLR_IPC_COUNT, fullset.size());
 				}
 				if (sectionset.size() > 0) {
 					solrDocument.setField(SOLR_IPC_SECTION,
 							sectionset.toArray(new String[] {}));
-					solrDocument.setField(SOLR_IPC_SECTION_COUNT,
-							sectionset.size());
+//					solrDocument.setField(SOLR_IPC_SECTION_COUNT,
+//							sectionset.size());
 				}
 				if (classset.size() > 0) {
 					solrDocument.setField(SOLR_IPC_CLASS,
 							classset.toArray(new String[] {}));
-					solrDocument
-							.setField(SOLR_IPC_CLASS_COUNT, classset.size());
+//					solrDocument
+//							.setField(SOLR_IPC_CLASS_COUNT, classset.size());
 				}
 				if (subclassset.size() > 0) {
 					solrDocument.setField(SOLR_IPC_SUB_CLASS,
 							subclassset.toArray(new String[] {}));
-					solrDocument.setField(SOLR_IPC_SUB_CLASS_COUNT,
-							subclassset.size());
+//					solrDocument.setField(SOLR_IPC_SUB_CLASS_COUNT,
+//							subclassset.size());
 				}
 				// no need to index ipc sub group,it's equal to ipc and in solr
 				// ,it's copied to icl_facet
@@ -484,8 +480,8 @@ public class ConvertUtil {
 				if (maingroupclassset.size() > 0) {
 					solrDocument.setField(SOLR_IPC_MAIN_GROUP,
 							maingroupclassset.toArray(new String[] {}));
-					solrDocument.setField(SOLR_IPC_MAIN_GROUP_COUNT,
-							maingroupclassset.size());
+//					solrDocument.setField(SOLR_IPC_MAIN_GROUP_COUNT,
+//							maingroupclassset.size());
 				}
 			} else if (key.equalsIgnoreCase(SOLR_UPC)) {
 				Set<String> fullset = new HashSet<String>();
@@ -651,41 +647,41 @@ public class ConvertUtil {
 		}
 	}
 
-	private void handleEmbeddedCitation(SolrInputDocument solrDocument,
-			DBObject mongoDocument) {
-		Object obj = mongoDocument.get(MONGODB_citation);
-		if (obj != null) {
-			BasicDBList cites = (BasicDBList) obj;
-
-			if (cites != null) {
-				List<String> backwardCitation = new LinkedList<String>();
-
-				for (Object citationObject : cites) {
-					String pn = ((BasicDBObject) citationObject)
-							.getString(MONGODB_pn);
-					backwardCitation.add(pn);
-				}
-
-				if (mongoDocument.containsField(MONGODB_analyzed_data)) {
-
-					if (((BasicDBObject) mongoDocument
-							.get(MONGODB_analyzed_data)).get(MONGODB_bcr) != null)
-						solrDocument.setField(SOLR_BCR, Float
-								.valueOf(((BasicDBObject) mongoDocument
-										.get(MONGODB_analyzed_data)).get(
-										MONGODB_bcr).toString()));
-
-				}
-
-				if (backwardCitation.size() > 0) {
-					solrDocument.setField(SOLR_CITE_FACET, backwardCitation);
-					solrDocument.setField(SOLR_CITE_COUNT,
-							backwardCitation.size());
-
-				}
-			}
-		}
-	}
+//	private void handleEmbeddedCitation(SolrInputDocument solrDocument,
+//			DBObject mongoDocument) {
+//		Object obj = mongoDocument.get(MONGODB_citation);
+//		if (obj != null) {
+//			BasicDBList cites = (BasicDBList) obj;
+//
+//			if (cites != null) {
+//				List<String> backwardCitation = new LinkedList<String>();
+//
+//				for (Object citationObject : cites) {
+//					String pn = ((BasicDBObject) citationObject)
+//							.getString(MONGODB_pn);
+//					backwardCitation.add(pn);
+//				}
+//
+//				if (mongoDocument.containsField(MONGODB_analyzed_data)) {
+//
+//					if (((BasicDBObject) mongoDocument
+//							.get(MONGODB_analyzed_data)).get(MONGODB_bcr) != null)
+//						solrDocument.setField(SOLR_BCR, Float
+//								.valueOf(((BasicDBObject) mongoDocument
+//										.get(MONGODB_analyzed_data)).get(
+//										MONGODB_bcr).toString()));
+//
+//				}
+//
+//				if (backwardCitation.size() > 0) {
+//					solrDocument.setField(SOLR_CITE_FACET, backwardCitation);
+//					solrDocument.setField(SOLR_CITE_COUNT,
+//							backwardCitation.size());
+//
+//				}
+//			}
+//		}
+//	}
 
 	private void handleEmbeddedPerson(SolrInputDocument solrDocument,
 			DBObject mongoDocument, String field) {
@@ -767,7 +763,7 @@ public class ConvertUtil {
 				if (assigneeList != null) {
 					solrDocument.setField(SOLR_AN, assigneeList);
 					solrDocument.setField(SOLR_AN_FACET, assigneeList);
-					solrDocument.setField(SOLR_AN_COUNT, assigneeList.size());
+//					solrDocument.setField(SOLR_AN_COUNT, assigneeList.size());
 
 					if (normalizedNameList.size() > 0) {
 						solrDocument.setField(SOLR_ANS, normalizedNameList);
@@ -876,49 +872,49 @@ public class ConvertUtil {
 		return map;
 	}
 
-	private void handleCited(SolrInputDocument solrDocument,
-			DBObject mongoDocument) {
-		String pn = (String) mongoDocument.get(MONGODB_pn);
-		long citedcount = 0;
-		if (pn != null) {
-			citedcount = IndexUtil.getPatentCollection().count(
-					new BasicDBObject("citation.pn", pn));
-			if (citedcount > 0) {
-				solrDocument.setField(SOLR_CITED_COUNT, citedcount);
-			}
-		}
-	}
+//	private void handleCited(SolrInputDocument solrDocument,
+//			DBObject mongoDocument) {
+//		String pn = (String) mongoDocument.get(MONGODB_pn);
+//		long citedcount = 0;
+//		if (pn != null) {
+//			citedcount = IndexUtil.getPatentCollection().count(
+//					new BasicDBObject("citation.pn", pn));
+//			if (citedcount > 0) {
+//				solrDocument.setField(SOLR_CITED_COUNT, citedcount);
+//			}
+//		}
+//	}
 
-	private void handleFamilyCount(SolrInputDocument solrDocument,
-			DBObject mongoDocument) {
-		String docdbfamily = null;
-		String inpadocfamily = null;
-		if (mongoDocument.containsField(MONGODB_family)) {
-			docdbfamily = ((BasicDBObject) mongoDocument.get(MONGODB_family))
-					.getString(MONGODB_family_docdb);
-			inpadocfamily = ((BasicDBObject) mongoDocument.get(MONGODB_family))
-					.getString(MONGODB_family_inpadoc);
-		}
-
-		if (!isEmpty(docdbfamily)) {
-			long docdbcount = IndexUtil.getPatentCollection().count(
-					new BasicDBObject(MONGODB_family + "."
-							+ MONGODB_family_docdb, docdbfamily));
-			if (docdbcount > 0) {
-				solrDocument.setField(SOLR_DOCDB_FAMILY_COUNT, docdbcount);
-			}
-
-		}
-		if (!isEmpty(inpadocfamily)) {
-			long inpadoccount = IndexUtil.getPatentCollection().count(
-					new BasicDBObject(MONGODB_family + "."
-							+ MONGODB_family_inpadoc, inpadocfamily));
-			if (inpadoccount > 0) {
-				solrDocument.setField(SOLR_INPADOC_FAMILY_COUNT, inpadoccount);
-			}
-
-		}
-	}
+//	private void handleFamilyCount(SolrInputDocument solrDocument,
+//			DBObject mongoDocument) {
+//		String docdbfamily = null;
+//		String inpadocfamily = null;
+//		if (mongoDocument.containsField(MONGODB_family)) {
+//			docdbfamily = ((BasicDBObject) mongoDocument.get(MONGODB_family))
+//					.getString(MONGODB_family_docdb);
+//			inpadocfamily = ((BasicDBObject) mongoDocument.get(MONGODB_family))
+//					.getString(MONGODB_family_inpadoc);
+//		}
+//
+//		if (!isEmpty(docdbfamily)) {
+//			long docdbcount = IndexUtil.getPatentCollection().count(
+//					new BasicDBObject(MONGODB_family + "."
+//							+ MONGODB_family_docdb, docdbfamily));
+//			if (docdbcount > 0) {
+//				solrDocument.setField(SOLR_DOCDB_FAMILY_COUNT, docdbcount);
+//			}
+//
+//		}
+//		if (!isEmpty(inpadocfamily)) {
+//			long inpadoccount = IndexUtil.getPatentCollection().count(
+//					new BasicDBObject(MONGODB_family + "."
+//							+ MONGODB_family_inpadoc, inpadocfamily));
+//			if (inpadoccount > 0) {
+//				solrDocument.setField(SOLR_INPADOC_FAMILY_COUNT, inpadoccount);
+//			}
+//
+//		}
+//	}
 
 	private String maptoMongoType(String field) {
 		if (field.equals(MONGODB_personAe))
