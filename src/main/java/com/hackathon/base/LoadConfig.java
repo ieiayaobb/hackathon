@@ -1,6 +1,7 @@
 package com.hackathon.base;
 
 import com.hackathon.dao.MongoDBDatabaseSingleton;
+import com.hackathon.dao.SolrSingleton;
 import com.hackathon.util.CommonUtil;
 import org.springframework.web.context.ContextLoaderListener;
 
@@ -16,7 +17,10 @@ public class LoadConfig extends ContextLoaderListener {
         super.contextInitialized(event);
         try {
             MongoDBDatabaseSingleton.getInstance(CommonUtil.loadConfig());
+            SolrSingleton.getInstance(CommonUtil.loadConfig());
         } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

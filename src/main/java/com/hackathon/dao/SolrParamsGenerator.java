@@ -20,7 +20,7 @@ public class SolrParamsGenerator {
 			.getLogger(SolrParamsGenerator.class);
 
 	public SolrParams getTopAssigneeFacetQueryParams(
-			List<AssigneeBean> assigneeList, String search_mode) {
+			List<AssigneeBean> assigneeList) {
 		List<String> queryList = new LinkedList<>();
 		for (AssigneeBean assigneeBean : assigneeList) {
 			queryList.add(StringUtil.assignQueryForAssignee(
@@ -41,7 +41,7 @@ public class SolrParamsGenerator {
 
 	// limit to 20 to make sure that the query to solr is fast
 	public ModifiableSolrParams getClassificationGroupedBySearchModeFromAssigneeParams(
-			String assignee, String search_mode, int limit, String facetField) {
+			String assignee, int limit, String facetField) {
 
 		ModifiableSolrParams params = new ModifiableSolrParams();
 		params.set("q", StringUtil.assignQueryForAssignee(assignee));
@@ -129,6 +129,20 @@ public class SolrParamsGenerator {
 			params.set("rows", 0);
 			params.set("qt", "/select");
 		}
+
+		return params;
+	}
+
+	public ModifiableSolrParams getTopCompaniesParams(int limit){
+		ModifiableSolrParams params = new ModifiableSolrParams();
+		params.set("q", "*");
+
+		params.set("facet", true);
+		params.set("facet.field", "ANS_FACET");
+		params.set("facet.sort", "count");
+		params.set("facet.limit", limit);
+		params.set("rows", 0);
+		params.set("qt", "/select");
 
 		return params;
 	}

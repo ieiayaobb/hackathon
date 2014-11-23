@@ -43,7 +43,7 @@ public class StringUtil {
 
 	private static String assignQueryUsingAnAndAnsAndAnsFacet(String assignee) {
 		String query = String
-				.format("(AN:\"%s\" OR AN_CN:\"%s\" OR AN_DE:\"%s\" OR AN_FR:\"%s\" OR AN_JP:\"%s\" OR ANS:\"%s\" OR ANS_FACET:\"%s\")",
+				.format("(AN:\"%s\" OR ANS:\"%s\" OR ANS_FACET:\"%s\")",
 						assignee, assignee, assignee, assignee, assignee,
 						assignee, assignee);
 		return query;
@@ -51,7 +51,7 @@ public class StringUtil {
 
 	private static String assignQueryUsingAnAndAnsFacet(String assignee) {
 		String query = String
-				.format("(AN:\"%s\" OR AN_CN:\"%s\" OR AN_DE:\"%s\" OR AN_FR:\"%s\" OR AN_JP:\"%s\" OR ANS_FACET:\"%s\")",
+				.format("(AN:\"%s\" OR ANS_FACET:\"%s\")",
 						assignee, assignee, assignee, assignee, assignee,
 						assignee);
 		return query;

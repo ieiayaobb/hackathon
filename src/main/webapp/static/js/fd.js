@@ -17,6 +17,9 @@ var labelType, useGradients, nativeTextSupport, animate;
 
 })();
 
+var xdis = 20;
+var ydis = 50;
+
 $jit.ForceDirected.Plot.NodeTypes.implement({
     //// this node type is used for plotting resource types (web)
     'building1': {
@@ -25,7 +28,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building1.png';
         },
@@ -41,7 +44,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building2.png';
         },
@@ -57,7 +60,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building3.png';
         },
@@ -73,7 +76,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building4.png';
         },
@@ -89,7 +92,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building5.png';
         },
@@ -105,7 +108,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building6.png';
         },
@@ -121,7 +124,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building7.png';
         },
@@ -137,7 +140,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building8.png';
         },
@@ -153,7 +156,7 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
             var img = new Image();
             var pos = node.getPos();
             img.onload = function () {
-                ctx.drawImage(img, pos.x - 60, pos.y - 60);
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
             }
             img.src = '../static/images/building/building9.png';
         },
@@ -162,10 +165,11 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
                 dim = node.getData('dim');
             return this.nodeHelper.square.contains(npos, pos, dim);
         }
-    },
+    }
 });
 
 function init(json) {
+    console.log(json)
     // init ForceDirected
     var fd = new $jit.ForceDirected({
         //id of the visualization container
@@ -186,18 +190,19 @@ function init(json) {
         // JSON structure.
         Node: {
             overridable: true,
+            type : "building1",
             dim: 20
         },
         Edge: {
             overridable: true,
             color: '#8cc63e',
-            lineWidth: 5,
+            lineWidth: 1,
             type: "arrow"
         },
         //Native canvas text styling
         Label: {
             type: 'HTML', //Native or HTML
-            size: 20,
+            size: 10,
             color: "#000000",
             style: 'bold'
         },
@@ -246,13 +251,13 @@ function init(json) {
         //Number of iterations for the FD algorithm
         iterations: 200,
         //Edge length
-        levelDistance: 100,
+        levelDistance: 30,
         // Add text to the labels. This method is only triggered
         // on label creation and only for DOM labels (not native canvas ones).
         onCreateLabel: function (domElement, node) {
             domElement.innerHTML = node.name;
             var style = domElement.style;
-            style.fontSize = "24px";
+            style.fontSize = "14px";
             style.color = "#ddd";
         },
         // Change node styles when DOM labels are placed

@@ -25,12 +25,16 @@ public class CompeteController {
     private FreebaseService freebaseService;
 
     @RequestMapping(value = "/fd")
-    public String fd(Model model) {
-        model.addAttribute("companies", fetchDataService.getAllCompany());
+    public String fd(@RequestParam int limit, Model model) {
+        try {
+            model.addAttribute("companies", fetchDataService.getAllCompany(limit));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "fd";
     }
     @RequestMapping(value = "/tree/{id}")
-    public String tree(@PathVariable String id, Model model){
+    public String tree(@PathVariable String id, Model model) throws Exception {
         model.addAttribute("competes", fetchDataService.getComptetesByCompanyId(id));
         return "tree";
     }

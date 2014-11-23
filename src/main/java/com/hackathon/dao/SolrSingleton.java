@@ -117,21 +117,20 @@ public class SolrSingleton {
 		}
 	}
 
-	public List<AssigneeBean> industry(String assignee, String search_mode)
+	public List<AssigneeBean> industry(String assignee)
 			throws Exception {
 
 		List<AssigneeBean> industry = getIndustryFromAssignee(assignee,
-						search_mode, 20,
+						 10,
 						"IPC_M_SUB_CLASS", "IPC_SUB_CLASS", 0.80f);
 
-		int toIndex = industry.size() > 10 ? 10 : industry.size();
+		int toIndex = industry.size() > 5 ? 5 : industry.size();
 
 		return industry.subList(0, toIndex);
 
 	}
 
-	public List<AssigneeBean> getIndustryFromAssignee(String assignee,
-													  String search_mode, int limit,
+	public List<AssigneeBean> getIndustryFromAssignee(String assignee, int limit,
 													  String facetFieldStr, String searchFieldStr, float globalRate)
 			throws SolrServerException {
 
@@ -139,7 +138,7 @@ public class SolrSingleton {
 
 		QueryResponse response = m_solr.query(paramsGenerator
 				.getClassificationGroupedBySearchModeFromAssigneeParams(
-						assignee, search_mode, limit,
+						assignee, limit,
 						facetFieldStr));
 
 		long total = 0;
@@ -180,7 +179,7 @@ public class SolrSingleton {
 			}
 
 			if (selectedClassificationList.size() > 0) {
-				return getTopAssignee(search_mode,
+				return getTopAssignee(
 						selectedClassificationList, searchFieldStr, assignee,
 						11);
 			}
@@ -189,7 +188,7 @@ public class SolrSingleton {
 		return new LinkedList<AssigneeBean>();
 	}
 
-	public List<AssigneeBean> getTopAssignee(String search_mode, List<String> classificationCodeList,
+	public List<AssigneeBean> getTopAssignee(List<String> classificationCodeList,
 											 String facetFieldStr, String assignee, int limit)
 			throws SolrServerException {
 		List<AssigneeBean> assigneeList = new LinkedList<>();
@@ -207,14 +206,15 @@ public class SolrSingleton {
 
 				for (Count count : values) {
 					String facetLabel = count.getName();
+
 					if (assignee.equalsIgnoreCase(facetLabel))
 						continue;
-					AssigneeBean assigneeBean = new AssigneeBean(facetLabel);
+					AssigneeBean assigneeBean = new AssigneeBean(StringUtil.clean(facetLabel));
 					assigneeList.add(assigneeBean);
 				}
 
 				Map<String, Integer> patentNumberMap = getTopAssigneeFacetQuery(
-						assigneeList, search_mode);
+						assigneeList);
 				for (AssigneeBean assigneeBean : assigneeList) {
 					assigneeBean.setNumberOfPatents(patentNumberMap
 							.get(StringUtil.assignQueryForAssignee(
@@ -227,9 +227,9 @@ public class SolrSingleton {
 	}
 
 	private Map<String, Integer> getTopAssigneeFacetQuery(
-			List<AssigneeBean> assigneeList, String search_mode) throws SolrServerException {
+			List<AssigneeBean> assigneeList) throws SolrServerException {
 		QueryResponse response = m_solr.query(paramsGenerator
-				.getTopAssigneeFacetQueryParams(assigneeList, search_mode
+				.getTopAssigneeFacetQueryParams(assigneeList
 						));
 		if (response != null) {
 			return response.getFacetQuery();
@@ -237,4 +237,24 @@ public class SolrSingleton {
 		return new HashMap<>();
 	}
 
+	public List<AssigneeBean> getTopCompanies(int limit) throws SolrServerException {
+		List<AssigneeBean> assigneeBeans = new LinkedList<AssigneeBean>();
+		QueryResponse response = m_solr.query(paramsGenerator
+				.getTopCompaniesParams(limit));
+		if (response != null) {
+			FacetField facetField = response
+					.getFacetField(Constant.Fields.ANS_FACET);
+
+			if ((facetField != null) && (facetField.getValueCount() > 0)) {
+				List<Count> values = facetField.getValues();
+
+				for (Count count : values) {
+					AssigneeBean assigneeBean = new AssigneeBean(StringUtil.clean(count.getName()));
+					assigneeBean.setNumberOfPatents(count.getCount());
+					assigneeBeans.add(assigneeBean);
+				}
+			}
+		}
+		return assigneeBeans;
+	}
 }

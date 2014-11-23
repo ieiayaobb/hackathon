@@ -19,49 +19,49 @@ import com.alibaba.fastjson.JSON;
 @Service
 public class SimulateService {
 
-	public String getGraph() {
-		System.out.println("Request received............");
-		List<GraphBean> result = new LinkedList<>();
-		String temp = "name0";
-		GraphBean graph = new GraphBean(temp, temp, "building1");
-		graph.addAdjacency(temp, "name1");
-		graph.addAdjacency(temp, "name2");
-		graph.addAdjacency(temp, "name3");
-		result.add(graph);
+//	public String getGraph() {
+//		System.out.println("Request received............");
+//		List<GraphBean> result = new LinkedList<>();
+//		String temp = "name0";
+//		GraphBean graph = new GraphBean(temp, temp, "building1");
+//		graph.addAdjacency(temp, "name1");
+//		graph.addAdjacency(temp, "name2");
+//		graph.addAdjacency(temp, "name3");
+//		result.add(graph);
+//
+//		temp = "name1";
+//		GraphBean graph1 = new GraphBean(temp, temp, "building2");
+//		graph1.addAdjacency(temp, "name0");
+//		graph1.addAdjacency(temp, "name2");
+//		graph1.addAdjacency(temp, "name4");
+//		graph1.addAdjacency(temp, "name5");
+//		result.add(graph1);
+//
+//		temp = "name2";
+//		GraphBean graph2 = new GraphBean(temp, temp, "building4");
+//		graph2.addAdjacency(temp, "name0");
+//		graph2.addAdjacency(temp, "name3");
+//		result.add(graph2);
+//
+//		temp = "name3";
+//		GraphBean graph3 = new GraphBean(temp, temp, "building8");
+//		graph3.addAdjacency(temp, "name0");
+//		graph3.addAdjacency(temp, "name1");
+//		result.add(graph3);
+//
+//		temp = "name4";
+//		GraphBean graph4 = new GraphBean(temp, temp, "building9");
+//		graph4.addAdjacency(temp, "name0");
+//		graph4.addAdjacency(temp, "name2");
+//		graph4.addAdjacency(temp, "name3");
+//		result.add(graph4);
+//
+//		temp = "name5";
+//		GraphBean graph5 = new GraphBean(temp, temp, "building3");
+//		result.add(graph5);
 
-		temp = "name1";
-		GraphBean graph1 = new GraphBean(temp, temp, "building2");
-		graph1.addAdjacency(temp, "name0");
-		graph1.addAdjacency(temp, "name2");
-		graph1.addAdjacency(temp, "name4");
-		graph1.addAdjacency(temp, "name5");
-		result.add(graph1);
-
-		temp = "name2";
-		GraphBean graph2 = new GraphBean(temp, temp, "building4");
-		graph2.addAdjacency(temp, "name0");
-		graph2.addAdjacency(temp, "name3");
-		result.add(graph2);
-
-		temp = "name3";
-		GraphBean graph3 = new GraphBean(temp, temp, "building8");
-		graph3.addAdjacency(temp, "name0");
-		graph3.addAdjacency(temp, "name1");
-		result.add(graph3);
-
-		temp = "name4";
-		GraphBean graph4 = new GraphBean(temp, temp, "building9");
-		graph4.addAdjacency(temp, "name0");
-		graph4.addAdjacency(temp, "name2");
-		graph4.addAdjacency(temp, "name3");
-		result.add(graph4);
-
-		temp = "name5";
-		GraphBean graph5 = new GraphBean(temp, temp, "building3");
-		result.add(graph5);
-
-		return JSON.toJSONString(result);
-	}
+//		return JSON.toJSONString(result);
+//	}
 
 	@RequestMapping("getTree")
 	public String getTree(String id) {

@@ -7,6 +7,8 @@ public class Adjacency {
 	private String m_nodeFrom;
 	private String m_nodeTo;
 
+	private Data data;
+
 	public Adjacency() {
 	}
 
