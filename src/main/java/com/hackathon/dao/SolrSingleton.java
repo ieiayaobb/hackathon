@@ -121,10 +121,10 @@ public class SolrSingleton {
 			throws Exception {
 
 		List<AssigneeBean> industry = getIndustryFromAssignee(assignee,
-						 10,
+						 20,
 						"IPC_M_SUB_CLASS", "IPC_SUB_CLASS", 0.80f);
 
-		int toIndex = industry.size() > 5 ? 5 : industry.size();
+		int toIndex = industry.size() > 10 ? 10 : industry.size();
 
 		return industry.subList(0, toIndex);
 

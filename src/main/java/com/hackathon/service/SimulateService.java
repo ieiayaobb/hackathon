@@ -19,49 +19,78 @@ import com.alibaba.fastjson.JSON;
 @Service
 public class SimulateService {
 
-//	public String getGraph() {
-//		System.out.println("Request received............");
-//		List<GraphBean> result = new LinkedList<>();
-//		String temp = "name0";
-//		GraphBean graph = new GraphBean(temp, temp, "building1");
-//		graph.addAdjacency(temp, "name1");
-//		graph.addAdjacency(temp, "name2");
-//		graph.addAdjacency(temp, "name3");
-//		result.add(graph);
-//
-//		temp = "name1";
-//		GraphBean graph1 = new GraphBean(temp, temp, "building2");
-//		graph1.addAdjacency(temp, "name0");
-//		graph1.addAdjacency(temp, "name2");
-//		graph1.addAdjacency(temp, "name4");
-//		graph1.addAdjacency(temp, "name5");
-//		result.add(graph1);
-//
-//		temp = "name2";
-//		GraphBean graph2 = new GraphBean(temp, temp, "building4");
-//		graph2.addAdjacency(temp, "name0");
-//		graph2.addAdjacency(temp, "name3");
-//		result.add(graph2);
-//
-//		temp = "name3";
-//		GraphBean graph3 = new GraphBean(temp, temp, "building8");
-//		graph3.addAdjacency(temp, "name0");
-//		graph3.addAdjacency(temp, "name1");
-//		result.add(graph3);
-//
-//		temp = "name4";
-//		GraphBean graph4 = new GraphBean(temp, temp, "building9");
-//		graph4.addAdjacency(temp, "name0");
-//		graph4.addAdjacency(temp, "name2");
-//		graph4.addAdjacency(temp, "name3");
-//		result.add(graph4);
-//
-//		temp = "name5";
-//		GraphBean graph5 = new GraphBean(temp, temp, "building3");
-//		result.add(graph5);
+	public String getGraph() {
+		System.out.println("Request received............");
+		List<GraphBean> result = new LinkedList<>();
+		String temp = "US29129";
+		GraphBean graph = new GraphBean(temp, temp, "document");
+		graph.addAdjacency(temp, "CN00192");
+		graph.addAdjacency(temp, "DE92001");
+		graph.addAdjacency(temp, "US99201");
+		result.add(graph);
 
-//		return JSON.toJSONString(result);
-//	}
+		temp = "DE92001";
+		GraphBean graph1 = new GraphBean(temp, temp, "document");
+		graph1.addAdjacency(temp, "DE9201");
+		graph1.addAdjacency(temp, "US9201");
+		graph1.addAdjacency(temp, "CN9201");
+		graph1.addAdjacency(temp, "DE7721");
+		result.add(graph1);
+
+		temp = "US99201";
+		GraphBean graph2 = new GraphBean(temp, temp, "document");
+		graph2.addAdjacency(temp, "CN9201");
+		graph2.addAdjacency(temp, "CN00192");
+		result.add(graph2);
+
+		temp = "CN00192";
+		GraphBean graph3 = new GraphBean(temp, temp, "document");
+		graph3.addAdjacency(temp, "DE92001");
+		graph3.addAdjacency(temp, "DE92918");
+		result.add(graph3);
+
+		temp = "DE92918";
+		GraphBean graph4 = new GraphBean(temp, temp, "document");
+		graph4.addAdjacency(temp, "CN92014");
+		graph4.addAdjacency(temp, "US99201");
+		graph4.addAdjacency(temp, "US92123");
+		result.add(graph4);
+
+		temp = "CN87298";
+		GraphBean graph5 = new GraphBean(temp, temp, "document");
+		result.add(graph5);
+
+		temp = "DE99102";
+		GraphBean graph6 = new GraphBean(temp, temp, "document");
+		graph6.addAdjacency(temp, "CN92014");
+		graph6.addAdjacency(temp, "DE89900");
+		graph6.addAdjacency(temp, "US92123");
+		result.add(graph6);
+
+		temp = "DE99102";
+		GraphBean graph7 = new GraphBean(temp, temp, "document");
+		graph7.addAdjacency(temp, "US92901");
+		graph7.addAdjacency(temp, "DE83755");
+		result.add(graph7);
+
+		temp = "DE99102";
+		GraphBean graph8 = new GraphBean(temp, temp, "document");
+		graph8.addAdjacency(temp, "CN82012");
+		graph8.addAdjacency(temp, "CN81212");
+		result.add(graph8);
+
+		temp = "DE99102";
+		GraphBean graph9 = new GraphBean(temp, temp, "document");
+		graph9.addAdjacency(temp, "US92901");
+		graph9.addAdjacency(temp, "CN92901");
+		graph9.addAdjacency(temp, "DE91223");
+		graph9.addAdjacency(temp, "US88833");
+		graph9.addAdjacency(temp, "US92901");
+		graph9.addAdjacency(temp, "CN11233");
+		result.add(graph9);
+
+		return JSON.toJSONString(result);
+	}
 
 	@RequestMapping("getTree")
 	public String getTree(String id) {

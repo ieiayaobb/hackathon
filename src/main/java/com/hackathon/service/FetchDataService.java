@@ -68,6 +68,10 @@ public class FetchDataService {
         return JSON.toJSONString(result);
     }
 
+    public String getAllCompany(){
+        return simulateService.getGraph();
+    }
+
     public String getComptetesByCompanyId(String id) throws Exception {
 //        List<Company> competes = new LinkedList<Company>();
 //        String url = TREE_URL + "?ID=" + id;
@@ -106,7 +110,7 @@ public class FetchDataService {
 //                List<AssigneeBean> competes_3 = SolrSingleton.getInstance().industry(subTreeName_2);
 //                for(AssigneeBean compete_3 : competes_3){
 //                    String subTreeName_3 = compete_3.getName();
-//                    tree.addChild(new TreeBean(subTreeName_3,subTreeName_3));
+//                    subTreeBean_2.addChild(new TreeBean(subTreeName_3,subTreeName_3));
 //                }
             }
         }

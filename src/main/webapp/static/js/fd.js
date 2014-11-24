@@ -165,11 +165,26 @@ $jit.ForceDirected.Plot.NodeTypes.implement({
                 dim = node.getData('dim');
             return this.nodeHelper.square.contains(npos, pos, dim);
         }
+    },
+    'document': {
+        'render': function (node, canvas) {
+            var ctx = canvas.getCtx();
+            var img = new Image();
+            var pos = node.getPos();
+            img.onload = function () {
+                ctx.drawImage(img, pos.x - xdis, pos.y - ydis);
+            }
+            img.src = '../static/images/documents/document.png';
+        },
+        'contains': function (node, pos) {
+            var npos = node.pos.getc(true),
+                dim = node.getData('dim');
+            return this.nodeHelper.square.contains(npos, pos, dim);
+        }
     }
 });
 
 function init(json) {
-    console.log(json)
     // init ForceDirected
     var fd = new $jit.ForceDirected({
         //id of the visualization container

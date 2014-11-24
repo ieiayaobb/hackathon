@@ -33,6 +33,15 @@ public class CompeteController {
         }
         return "fd";
     }
+    @RequestMapping(value = "/document")
+    public String fd(Model model) {
+        try {
+            model.addAttribute("document", fetchDataService.getAllCompany());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "document";
+    }
     @RequestMapping(value = "/tree/{id}")
     public String tree(@PathVariable String id, Model model) throws Exception {
         model.addAttribute("competes", fetchDataService.getComptetesByCompanyId(id));

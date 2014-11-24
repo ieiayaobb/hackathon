@@ -17,6 +17,7 @@ var labelType, useGradients, nativeTextSupport, animate;
 
 
 function init(json){
+    console.log(json)
     //init RGraph
     var rgraph = new $jit.RGraph({
         //Where to append the visualization
